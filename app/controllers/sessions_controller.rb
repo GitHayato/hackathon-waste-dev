@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
   def create
     unless request.env['omniauth.auth'][:uid]
       flash[:danger] = '連携に失敗しました'
