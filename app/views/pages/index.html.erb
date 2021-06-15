@@ -8,5 +8,5 @@
   <% if logged_in? %>
     <%= link_to 'ログアウト', logout_path %>
   <% else %>
-    <%= link_to 'Twitterでログイン', '/auth/twitter' %>
+    <%= link_to 'Twitterでログイン', '/auth/twitter', method: :post %>
   <% end %>
