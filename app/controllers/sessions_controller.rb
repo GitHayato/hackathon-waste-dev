@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
     user = User.find_by(uid: user_data[:uid])
     if user
       log_in user
+      file = File.dirname(__FILE__)
+      hash = `python #{file}/hackason/first_main.py -a #{user.nickname}`
       flash[:success] = 'ログインしました'
       redirect_to root_url
     else
