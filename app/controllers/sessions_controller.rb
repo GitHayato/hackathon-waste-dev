@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     end
     user_data = request.env['omniauth.auth']
     user = User.find_by(uid: user_data[:uid])
+    file = File.dirname(__FILE__)
     if user
       log_in user
       flash[:success] = 'ログインしました'
@@ -19,6 +20,7 @@ class SessionsController < ApplicationController
         image: user_data[:info][:image],
       )
       if new_user.save
+        hash = `python #{file}/hackason/first_main.py -a #{new_user.nickname}`
         log_in new_user
         flash[:success] = 'ユーザー登録成功'
       else
