@@ -39,8 +39,11 @@ def main(user_id:str):
 
 
 if __name__ == "__main__":
-    # ユーザーのIDを受け取る
-    user_id = str(input())
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-a', '--arg')
+    args = parser.parse_args()
+    user_id = args.arg
 
     # mainを実行
     hash_block = main(user_id)
