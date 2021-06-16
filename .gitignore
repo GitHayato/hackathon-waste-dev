@@ -36,3 +36,6 @@ yarn-debug.log*
 .yarn-integrity
 
 /.env
+
+/app/controllers/hackason/hashing/__pycache__
+/app/controllers/hackason/twitter_api/__pycache__
