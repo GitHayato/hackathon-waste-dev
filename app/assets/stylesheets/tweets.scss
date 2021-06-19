@@ -1,0 +1,59 @@
+#hashtag {
+  width: 600px;
+  margin: 0 auto;
+}
+
+#hashtag-today {
+  font-size: 24px;
+}
+
+.tweets-timeline {
+  border: 1px solid #E1E8ED;
+  border-radius: 5px;
+}
+
+.tweet-cards {
+  padding: 15px;
+  border: 1px solid #E1E8ED;
+
+  p {
+    margin: 10px 0 0;
+  }
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+
+  div {
+    margin-left: auto;
+  }
+}
+
+.tweet-user-image {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.tweet-username {
+  margin: 0 10px;
+}
+
+.tweet-user-screen_name {
+  color: #657786;
+  font-size: 0.9em;
+}
+
+.twitter-image {
+  height: 24px;
+}
+
+.tweet-content {
+  line-height: 1.5em;
+}
+
+.tweet-time {
+  color: #657786;
+  font-size: 0.8em;
+}
