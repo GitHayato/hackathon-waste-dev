@@ -58,3 +58,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'pry-rails'
 
 gem 'twitter'
+
+group :production do
+  gem 'unicorn', '5.4.1'
+end
