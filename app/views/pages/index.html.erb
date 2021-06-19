@@ -1,15 +1,4 @@
-<%= flash[:danger] %>
-<%= flash[:success] %>
 
-<h1>Pages#index</h1>
-
-<p>Find me in app/views/pages/index.html.erb</p>
-
-  <% if logged_in? %>
-    <%= link_to 'ログアウト', logout_path %>
-  <% else %>
-    <%= link_to 'Twitterでログイン', '/auth/twitter', method: :post %>
-  <% end %>
 
 <% if logged_in? %>
   <div id="hashtag">
@@ -32,24 +21,32 @@
     </div>
   </div>
 <% else %>
-  <div id="hashtag">
-    <p id="hashtag-today">#今日の積み上げ</p>
-    <div class="tweets-timeline">
-      <% @official.each do |tweet| %>
-        <%= link_to tweet[:tweet_link] do %>
-          <div class="tweet-cards">
-            <div class="tweet-header">
-              <%= image_tag tweet[:image], class: "tweet-user-image" %>
-              <span class="tweet-username"><%= tweet[:name] %></span>
-              <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
-              <div><%= image_tag "twitter_logo.png", class: "twitter-image" %></div>
+  <div class="top-contents">
+    <div class="top-left">
+      <p>積み上げツイートをしないそこのあなた！<br>月に変わってお仕置きよ！</p>
+      <%= link_to image_tag("twitter_logo_white.png", alt: "twitter", class: "login-image")+"Twitterで登録/ログイン",
+         '/auth/twitter', method: :post, class: "login button" %>
+    </div>
+    <div class="top-right">
+      <div id="hashtag">
+        <p id="hashtag-today">#今日の積み上げ</p>
+        <div class="tweets-timeline">
+          <% @official.each do |tweet| %>
+            <%= link_to tweet[:tweet_link] do %>
+              <div class="tweet-cards">
+                <div class="tweet-header">
+                  <%= image_tag tweet[:image], class: "tweet-user-image" %>
+                  <span class="tweet-username"><%= tweet[:name] %></span>
+                  <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
+                  <div><%= image_tag "twitter_logo.png", class: "twitter-image" %></div>
+                </div>
+                <p class="tweet-content"><%= tweet[:text] %></p>
+                <p class="tweet-time"><%= tweet[:create] %></p>
+              <% end %>
             </div>
-            <p class="tweet-content"><%= tweet[:text] %></p>
-            <p class="tweet-time"><%= tweet[:create] %></p>
           <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
-
 <% end %>
