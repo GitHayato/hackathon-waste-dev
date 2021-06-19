@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: hackathon_waste_dev_production
-  username: hackathon_waste_dev
-  password: <%= ENV['HACKATHON_WASTE_DEV_DATABASE_PASSWORD'] %>
+  username: root
+  password: Oshioki@Bishojyosenshi3
+  socket: /var/lib/mysql/mysql.sock
