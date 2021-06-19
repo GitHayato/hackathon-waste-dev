@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   include SessionsHelper
   def index
     if logged_in?
-      client = Authorization.init
+      client = Authorization.init()
       @data = client.search("#今日の積み上げ", result_type: "recent", from: "#{current_user.nickname}").collect do |tweet|
         {
           "image": "#{tweet.user.profile_image_url.to_s.sub('http', 'https')}",
