@@ -1,0 +1,39 @@
+// ログイン前トップページ
+.top-contents {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 145px);
+}
+
+.top-left {
+  width: 50%;
+  margin: 30vh 0;
+
+  p {
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 2em;
+  }
+
+  a {
+    margin: 30px auto;
+  }
+}
+
+.top-right {
+  width: 50%;
+}
+
+
+.login-image {
+  width: 24px;
+  margin-right: 6px;
+}
+
+.login {
+  width: 300px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
