@@ -1,17 +1,14 @@
+// メイン
 #hashtag {
   width: 600px;
   margin: 30px auto;
-}
-
-#hashtag-today {
-  font-size: 24px;
 }
 
 .tweets-timeline {
   border: 1px solid #E1E8ED;
   border-radius: 5px;
   height: calc(100vh - 230px);
-  max-height: calc(100vw - 280px);
+  max-height: calc(100vh - 280px);
   overflow-y: scroll;
 }
 
@@ -59,4 +56,71 @@
 .tweet-time {
   color: #657786;
   font-size: 0.8em;
+}
+
+.tweeted-by {
+  color: #657786;
+  font-size: 0.8em;
+  text-align: right;
+  margin-top: 5px;
+}
+
+// サブ
+.official-hashtag {
+  width: 350px;
+  margin: 30px 50px;
+}
+
+.official-tweets-timeline {
+  border: 1px solid #E1E8ED;
+  border-radius: 5px;
+  height: calc(100vh - 230px);
+  max-height: calc(100vh - 450px);
+  overflow-y: scroll;
+}
+
+.official-tweet-cards {
+  padding: 10px;
+  border: 1px solid #E1E8ED;
+
+  p {
+    margin: 10px 0 0;
+  }
+}
+
+.official-tweet-header {
+  display: flex;
+  align-items: center;
+
+  div {
+    margin-left: auto;
+  }
+}
+
+.official-tweet-user-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.official-tweet-username {
+  margin: 0 5px;
+}
+
+.official-tweet-user-screen_name {
+  color: #657786;
+  font-size: 0.7em;
+}
+
+.official-twitter-image {
+  height: 20px;
+}
+
+.tweet-content {
+  line-height: 1.5em;
+}
+
+.tweet-time {
+  color: #657786;
+  font-size: 0.6em;
 }
