@@ -10,6 +10,9 @@ class SessionsController < ApplicationController
     file = File.dirname(__FILE__)
     if user
       log_in user
+      hash = TweetHash.find_by(user_id: user.id)
+      tweet_hash = `python #{file}/concern/hackason/second_main.py -i #{user.nickname} -phv #{hash}`
+      TweetHash.update(tweet_hash: tweet_hash)
       flash[:success] = 'ログインしました'
       redirect_to root_url
     else
@@ -21,7 +24,7 @@ class SessionsController < ApplicationController
       )
       if new_user.save
         log_in new_user
-        tweet_hash = `python #{file}/hackason/first_main.py -a #{new_user.nickname}`
+        tweet_hash = `python #{file}/concern/hackason/first_main.py -i #{new_user.nickname}`
         TweetHash.create(tweet_hash: tweet_hash, user_id: new_user.id)
         flash[:success] = 'ユーザー登録成功'
       else
