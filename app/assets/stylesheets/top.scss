@@ -37,3 +37,23 @@
   align-items: center;
   justify-content: center;
 }
+
+// ログイン後トップページ
+.main-contents {
+  height: calc(100vh - 175px);
+  margin-top:  3vh;
+  display: flex;
+}
+
+// 空
+.left-side {
+  width: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tukikawa-image {
+  width: 200px;
+  margin-right: 5px;
+}
