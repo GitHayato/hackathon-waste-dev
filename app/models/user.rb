@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-  has_many :tweet_hashes
+  has_one :tweet_hashes
 end
