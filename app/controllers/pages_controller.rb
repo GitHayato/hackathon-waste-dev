@@ -3,17 +3,17 @@ class PagesController < ApplicationController
   include SessionsHelper
   def index
     if logged_in?
-      @data = data(current_user.nickname)
-    else
-      @official = data("tukikawaoshioki")
+      @data = data(current_user.nickname, "#今日の積み上げ")
     end
+    @official = data("tukikawaoshioki", "#お仕置き執行")
+    # @official = data("HayatoProgram")
   end
 
   private
 
-  def data(user)
+  def data(user, tag)
     client = Authorization.init()
-    data = client.search("#今日の積み上げ", result_type: "recent", from: user).collect do |tweet|
+    data = client.search(tag, result_type: "recent", from: user).collect do |tweet|
       {
         "image": "#{tweet.user.profile_image_url.to_s.sub('http', 'https')}",
         "name": "#{tweet.user.name}",
