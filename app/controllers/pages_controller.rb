@@ -19,7 +19,7 @@ class PagesController < ApplicationController
         "name": "#{tweet.user.name}",
         "text": "#{tweet.full_text}",
         "tweet_link": "#{tweet.uri}",
-        "create": "#{tweet.created_at.strftime("%H:%M・%Y/%m/%d")}",
+        "create": "#{tweet.created_at.in_time_zone('Tokyo').strftime("%H:%M・%Y/%m/%d")}",
         "screen_name": "#{tweet.user.screen_name}"
       }
     end
