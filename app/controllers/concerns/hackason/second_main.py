@@ -67,7 +67,7 @@ def main(user_id:str, pre_hash_Value:str) -> Tuple:
 
     
     #　データベースに保存したhash値と比較する。
-    if  dby_32_tweet_sha256 != "No":
+    if  dby_32_tweet_sha256 != dby_32_tweet_sha256:
         #  改ざんされた為、公式Twitterで改ざんされたツイートを行う。：hash値は今後改ざん後のモノを使う
         twitter_api.post_tweet(f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}")
         
