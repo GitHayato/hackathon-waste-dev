@@ -1,6 +1,6 @@
 #hashtag {
   width: 600px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 #hashtag-today {
@@ -10,6 +10,8 @@
 .tweets-timeline {
   border: 1px solid #E1E8ED;
   border-radius: 5px;
+  max-height: calc(100vw - 280px);
+  overflow-y: scroll;
 }
 
 .tweet-cards {

@@ -1,0 +1,10 @@
+<header>
+  <%= link_to root_path, class: "header-left" do %>
+    <%= image_tag "twitter_logo.png", alt: "twitter", id: "header-logo" %>
+    <span>#積み上げったー</span>
+  <% end %>
+
+  <% if logged_in? %>
+    <p><%= link_to 'ログアウト', logout_path, class: "logout button" %></p>
+  <% end %>
+</header>
