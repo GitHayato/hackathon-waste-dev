@@ -37,3 +37,10 @@
   align-items: center;
   justify-content: center;
 }
+
+// ログイン後トップページ
+.main-contents {
+  height: calc(100vh - 175px);
+  margin-top:  3vh
+
+}

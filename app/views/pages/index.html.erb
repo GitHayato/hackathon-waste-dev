@@ -1,23 +1,25 @@
 
 
 <% if logged_in? %>
-  <div id="hashtag">
-    <p id="hashtag-today">#今日の積み上げ</p>
-    <div class="tweets-timeline">
-      <% @data.each do |tweet| %>
-        <%= link_to tweet[:tweet_link] do %>
-          <div class="tweet-cards">
-            <div class="tweet-header">
-              <%= image_tag tweet[:image], class: "tweet-user-image" %>
-              <span class="tweet-username"><%= tweet[:name] %></span>
-              <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
-              <div><%= image_tag "twitter_logo.png", class: "twitter-image" %></div>
-            </div>
-            <p class="tweet-content"><%= tweet[:text] %></p>
-            <p class="tweet-time"><%= tweet[:create] %></p>
-          <% end %>
-        </div>
-      <% end %>
+  <div class="main-contents">
+    <div id="hashtag">
+      <p id="hashtag-today">#今日の積み上げ</p>
+      <div class="tweets-timeline">
+        <% @data.each do |tweet| %>
+          <%= link_to tweet[:tweet_link] do %>
+            <div class="tweet-cards">
+              <div class="tweet-header">
+                <%= image_tag tweet[:image], class: "tweet-user-image" %>
+                <span class="tweet-username"><%= tweet[:name] %></span>
+                <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
+                <div><%= image_tag "twitter_logo.png", class: "twitter-image" %></div>
+              </div>
+              <p class="tweet-content"><%= tweet[:text] %></p>
+              <p class="tweet-time"><%= tweet[:create] %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 <% else %>

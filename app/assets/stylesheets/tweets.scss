@@ -10,6 +10,7 @@
 .tweets-timeline {
   border: 1px solid #E1E8ED;
   border-radius: 5px;
+  height: calc(100vh - 230px);
   max-height: calc(100vw - 280px);
   overflow-y: scroll;
 }
