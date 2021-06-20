@@ -22,10 +22,11 @@ def implement_hashing(tweet:str, timestamp:str, prehash_Value:str) -> str:
     return s256
 
 
-if __name__ == "__main__":
-    text = "test"
-    text_1 = "a"
-    text_2 = "b"
-    hash_valuse = implement_hashing(text, text_1, text_2)
-    print(hash_valuse)
-    print(len(hash_valuse))
+# 文字列をsha256に変換する
+def hash_exe(str_data:str) -> str:
+    try:
+        s256 = hashlib.sha256(str_data.encode()).hexdigest()
+    except Exception as e:
+        print(f'error:{e}')
+    
+    return s256
