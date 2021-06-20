@@ -14,7 +14,7 @@
                 <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
                 <div><%= image_tag "twitter_logo.png", class: "twitter-image" %></div>
               </div>
-              <p class="tweet-content"><%= tweet[:text] %></p>
+              <p class="tweet-content"><%= simple_format tweet[:text] %></p>
               <p class="tweet-time"><%= tweet[:create] %></p>
             <% end %>
           </div>
@@ -33,7 +33,7 @@
                 <span class="official-tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
                 <div><%= image_tag "twitter_logo.png", class: "official-twitter-image" %></div>
               </div>
-              <p class="tweet-content"><%= tweet[:text] %></p>
+              <p class="tweet-content"><%= simple_format tweet[:text] %></p>
               <p class="tweet-time"><%= tweet[:create] %></p>
             <% end %>
           </div>
@@ -61,7 +61,7 @@
                   <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
                   <div><%= image_tag "twitter_logo.png", class: "official-twitter-image" %></div>
                 </div>
-                <p class="tweet-content"><%= tweet[:text] %></p>
+                <p class="tweet-content"><%= simple_format tweet[:text] %></p>
                 <p class="tweet-time"><%= tweet[:create] %></p>
               <% end %>
             </div>

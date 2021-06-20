@@ -6,7 +6,6 @@ class PagesController < ApplicationController
       @data = data(current_user.nickname, "#今日の積み上げ")
     end
     @official = data("tukikawaoshioki", "#お仕置き執行")
-    # @official = data("HayatoProgram")
   end
 
   private
