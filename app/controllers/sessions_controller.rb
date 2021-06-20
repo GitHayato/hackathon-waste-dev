@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       )
       if new_user.save
         log_in new_user
-        tweet_hash = `python #{file}/hackason/first_main.py -a #{new_user.nickname}`
+        tweet_hash = `python #{file}/concern/hackason/first_main.py -i #{new_user.nickname}`
         TweetHash.create(tweet_hash: tweet_hash, user_id: new_user.id)
         flash[:success] = 'ユーザー登録成功'
       else
