@@ -5,7 +5,8 @@ class PagesController < ApplicationController
     if logged_in?
       @data = data(current_user.nickname, "#今日の積み上げ")
     end
-    @official = data("tukikawaoshioki", "#お仕置き執行")
+    @punishments = data("tukikawaoshioki", "#お仕置き執行")
+    @rewards = data("taiyogohoubi", "")
   end
 
   private

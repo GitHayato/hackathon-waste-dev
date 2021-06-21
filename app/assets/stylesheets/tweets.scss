@@ -7,8 +7,8 @@
 .tweets-timeline {
   border: 1px solid #E1E8ED;
   border-radius: 5px;
-  height: calc(100vh - 230px);
-  max-height: calc(100vh - 280px);
+  height: calc(100vh - 280px);
+  min-height: 300px;
   overflow-y: scroll;
 }
 
@@ -74,8 +74,8 @@
 .official-tweets-timeline {
   border: 1px solid #E1E8ED;
   border-radius: 5px;
-  height: calc(100vh - 230px);
-  max-height: calc(100vh - 450px);
+  height: calc(100vh - 450px);
+  min-height: 230px;
   overflow-y: scroll;
 }
 
@@ -123,4 +123,17 @@
 .tweet-time {
   color: #657786;
   font-size: 0.6em;
+}
+
+.before-login-hashtag {
+  width: 600px;
+  margin: 30px auto;
+}
+
+.before-login-tweets-timeline {
+  border: 1px solid #E1E8ED;
+  border-radius: 5px;
+  height: calc(100vh - 800px);
+  min-height: 230px;
+  overflow-y: scroll;
 }
