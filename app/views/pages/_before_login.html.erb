@@ -1,0 +1,28 @@
+<div class="top-contents">
+  <div class="top-left">
+    <p>積み上げツイートをしないそこのあなた！<br>月に変わってお仕置きよ！</p>
+    <%= link_to image_tag("twitter_logo_white.png", alt: "twitter", class: "login-image")+"Twitterで登録/ログイン",
+        '/auth/twitter', method: :post, class: "login button" %>
+  </div>
+  <div class="top-right">
+    <div id="hashtag">
+      <div class="tweets-timeline">
+        <% @official.each do |tweet| %>
+          <%= link_to tweet[:tweet_link] do %>
+            <div class="tweet-cards">
+              <div class="tweet-header">
+                <%= image_tag tweet[:image], class: "tweet-user-image" %>
+                <span class="tweet-username"><%= tweet[:name] %></span>
+                <span class="tweet-user-screen_name">@<%= tweet[:screen_name] %></span>
+                <div><%= image_tag "twitter_logo.png", class: "official-twitter-image" %></div>
+              </div>
+              <p class="tweet-content"><%= simple_format tweet[:text] %></p>
+              <p class="tweet-time"><%= tweet[:create] %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <p class="tweeted-by">Tweeted by 美少女戦士お仕置き仮面</p>
+    </div>
+  </div>
+</div>
