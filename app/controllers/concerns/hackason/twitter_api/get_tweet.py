@@ -4,7 +4,6 @@ from datetime import datetime
 import os
 
 import tweepy
-from tweepy import api
 
 from dotenv import load_dotenv
 
@@ -43,8 +42,6 @@ class TwitterAPI:
         # 各ツイートの内容と日付をlistに格納
         tweet_info = []
         for tweet in tweets:
-            # print(tweet.text)
-            # print(tweet.created_at)
             tweet_info.append((tweet.text, tweet.created_at))
         
         return tweet_info
@@ -56,7 +53,6 @@ class TwitterAPI:
         tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None)]
 
         # 昨日~31日前のツイートを抽出
-        # for_31_1days_tweet = [tweet for tweet in tweets if (float(tweet.created_at.timestamp()) >= float(since)) & (float(tweet.created_at.timestamp()) <= float(latest_tweet_time))]
         yd_31days_tweet = [tweet for tweet in tweets if (float(tweet.created_at.timestamp()) >= ago_31days) & (float(tweet.created_at.timestamp()) <= yd)]
         
         # 一昨日~32日前のツイートを抽出
@@ -64,15 +60,11 @@ class TwitterAPI:
 
         # 昨日~31日前の内容と日付をlistに格納
         yd_31days_tweet_info = []
-        print(len(yd_31days_tweet))
         for tweet in yd_31days_tweet:
-            # print(tweet.text)
-            # print(tweet.created_at)
             yd_31days_tweet_info.append((tweet.text, tweet.created_at))
 
         # 一昨日~32日前の内容と日付をlistに格納
         dby_32days_tweet_info = []
-        print(len(dby_32days_tweet))
         for tweet in dby_32days_tweet:
             dby_32days_tweet_info.append((tweet.text, tweet.created_at))
         
@@ -138,33 +130,5 @@ class TwitterAPI:
             return True
         
         return False
-
-
-
-if __name__ == "__main__":
-
-    twitter_api = TwitterAPI()
-    
-    # id = "HayatoProgram"
-    # since = "2021/05/20"
-    # until = "2021/06/20"
-    # since = datetime(2021,5,20,0,0).strftime("%s")
-    # until = datetime(2021,6,20,0,0).strftime("%s")
-
-    # yd = float(until) - 2
-    # dby = yd - 86400
-    # ago_31days = yd - (86400 * 30)
-    # ago_32days = dby - (86400 * 30)
-    # print(f'yd:{datetime.fromtimestamp(yd)}')
-    # print(f'dby:{datetime.fromtimestamp(dby)}')
-    # print(f'ago_31days:{datetime.fromtimestamp(ago_31days)}')
-    # print(f'ago_32days:{datetime.fromtimestamp(ago_32days)}')
-
-    # # tweet_info = twitter_api.get_user_tweets(id)
-    # dby_32days_tweet_info, yd_31days_tweet_info = twitter_api.get_user_tweets_byTime(id, yd, dby, ago_31days, ago_32days)
-    # print(f'dby_32days_tweet_info:{dby_32days_tweet_info}')
-    # print(f'yd_31days_tweet_info:{yd_31days_tweet_info}')
-
-    twitter_api.send_directMessage('@kitiyama1152', '月に代わってお仕置きよ ついーとしなさい！')
 
     
