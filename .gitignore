@@ -36,7 +36,7 @@ yarn-debug.log*
 .yarn-integrity
 
 /.env
-/app/hackason_git/hackathon-waste-dev/app/controllers/concerns/hackason/twitter_api/.env
+/app/controllers/concerns/hackason/twitter_api/.env
 
 /app/controllers/concerns/hackason/hashing/__pycache__
 /app/controllers/concerns/hackason/twitter_api/__pycache__
