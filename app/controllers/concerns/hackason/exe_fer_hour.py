@@ -47,7 +47,6 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
     if hash_value != prevalid_hash_value:
         post_message = f"お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}"
         twitter_api.post_tweet(post_message)
-        print("改ざん検知")
 
     # ツイートしていない期間を計算。
     latest_tweet = float(tweets[0].created_at.timestamp())
@@ -58,7 +57,6 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
         count_updated = 0
         hasten_message = '月に代わってお仕置きよ ついーとしなさい！'
         twitter_api.send_directMessage(user_id, hasten_message)
-        print("催促")
 
     # 続いている場合は、応援DM
     else:
@@ -67,7 +65,6 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
             count_updated = 0
             celebration_message = 'すごいわ！ これからも頑張って☆彡'
             twitter_api.send_directMessage(user_id, celebration_message)
-            print("応援")
 
 
     # hash値,start,endの更新をしてrubyに返す。
@@ -84,8 +81,6 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
     
     # それらをhash化する
     hash_value_updated =  hash_exe(sum_now_tweet)
-
-    print(f'count:{count}')
 
     return  hash_value_updated, start_updated, end_updated, count_updated
     
@@ -132,11 +127,3 @@ if __name__ == "__main__":
     # Rubyにhash値を返す
     print(hash_value_updated, start_updated, end_updated, count_updated)
 
-    # now_time = time.time() - 14400
-    # ago_30_time = now_time - (86400*30)
-    # print(now_time)
-    # print(ago_30_time)
-
-    # print(get_hash_value("HayatoProgram", 1621736039.1315122, 1624328039.1315122))
-
-    # print(f'4時間前{datetime.fromtimestamp(now_time)}')
