@@ -30,3 +30,4 @@ def hash_exe(str_data:str) -> str:
         print(f'error:{e}')
     
     return s256
+
