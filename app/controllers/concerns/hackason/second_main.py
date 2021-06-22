@@ -8,6 +8,9 @@
         Rubyに返す
 """
 
+# import sys
+# sys.path.append("hashing.py")
+
 import argparse
 from argparse import ArgumentError
 from datetime import datetime, date
@@ -16,11 +19,12 @@ from hashing.hashingBysha256 import hash_exe
 from twitter_api.get_tweet import TwitterAPI
 
 
-
-
 def get_today_time() -> int:
     td_today = date.today().strftime('%s')
     return int(td_today)
+    # print(td_time)
+    # print(f'datetime: {datetime.fromtimestamp(int(td_time))}')
+
 
 """
     仕様：
@@ -47,7 +51,10 @@ def main(user_id:str, pre_hash_Value:str) -> Tuple:
     ago_31days = yd - (86400 * 30)
 
     ago_32days = dby - (86400 * 30)
-        
+    
+    # print(f'today day: {datetime.fromtimestamp(td_today)}')
+    # print(f'31 day ago: {datetime.fromtimestamp(ago_31days)}')
+
     # 昨日～31日,一昨日～32日分のツイートを抽出
     twitter_api = TwitterAPI()
     dby_32days_tweet_info, yd_31days_tweet_info = twitter_api.get_user_tweets_byTime(user_id, yd, dby, ago_31days, ago_32days)
@@ -67,15 +74,18 @@ def main(user_id:str, pre_hash_Value:str) -> Tuple:
 
     
     #　データベースに保存したhash値と比較する。
+    # if  dby_32_tweet_sha256 != pre_hash_Value:
     if  dby_32_tweet_sha256 != "No":
         #  改ざんされた為、公式Twitterで改ざんされたツイートを行う。：hash値は今後改ざん後のモノを使う
+        print(f"yd_31_tweet_sha256: {dby_32_tweet_sha256}", end="")
+        print(f"              pre_hash_Value: {pre_hash_Value}")
         twitter_api.post_tweet(f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}")
         
         # 催促メッセージ
-        message_1 = f'月に代わってお仕置きよ'*50
+        message_1 = f'月に代わってお仕置きよ ついーとしなさい！'
         twitter_api.send_directMessage(user_id, message_1)
-        message_2 = f'あんぱん'*50
-        twitter_api.send_directMessage(user_id, message_2)
+        # message_2 = f'あんぱん'*50
+        # twitter_api.send_directMessage(user_id, message_2)
 
 
     """
@@ -92,6 +102,18 @@ def main(user_id:str, pre_hash_Value:str) -> Tuple:
 
     return yd_31_tweet_sha256
 
+    # # 過去30日分のツイートををhash化する
+    # pre_block = yd_hash_valuse
+    # for i,info in enumerate(for_30days_tweet):
+    #     updated_hash_valuse = implement_hashing(info[0], str(info[1]), pre_block)
+
+    #     # 最後の要素の時実行
+    #     if i == len(for_30days_tweet) - 1:
+    #         break
+
+    #     # 前のブロック値を更新
+    #     pre_block = updated_hash_valuse
+
 
 # 実行ファイル指定後の引数を取得する。
 def extra_argments() -> Tuple:
@@ -99,16 +121,21 @@ def extra_argments() -> Tuple:
 
     parser.add_argument('-i', '--id')
     parser.add_argument('-phv', '--prehashValue')
+    # parser.add_argument('-hv', '--hashValue')
+    # parser.add_argument('-ltt', '--latest_tweet_time')
     args = parser.parse_args()
 
     if (not args.id) or (not args.prehashValue):
         raise ArgumentError(None, '要素がありません')
 
+    # return (args.id, args.prehashValue, args.hashValue, args.latest_tweet_time)
     return (args.id, args.prehashValue)
             
 
-
 if __name__ == "__main__":
+    """
+        ツイートを取得したstart:endの時間をdbから貰う必要がある。
+    """
 
     # 実行ファイル指定後の引数を取得する
     user_id, pre_hash_Value = extra_argments()
@@ -118,4 +145,4 @@ if __name__ == "__main__":
     
     # # Rubyにhash値を返す
     print(yd_31_tweet_sha256)
-
+    # get_today_time()
