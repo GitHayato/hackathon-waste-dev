@@ -88,9 +88,7 @@ class TwitterAPI:
 
     # ツイートを投稿する
     def post_tweet(self, tweet:str) -> None:
-        res = TwitterAPI.api.update_status(tweet)
-        # print(res)
-
+        TwitterAPI.api.update_status(tweet)
     
     # DMを送る
     def send_directMessage(self, user_id:str, message:str) -> None:
@@ -99,8 +97,7 @@ class TwitterAPI:
         recipient_id = TwitterAPI.api.get_user(user_id)
 
         # DMを送る
-        res = TwitterAPI.api.send_direct_message(recipient_id=recipient_id.id_str, text=message)
-        # print(res)
+        TwitterAPI.api.send_direct_message(recipient_id=recipient_id.id_str, text=message)
 
     """
         tweet間の期間を計算
