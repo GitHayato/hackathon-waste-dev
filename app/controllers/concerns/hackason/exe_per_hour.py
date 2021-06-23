@@ -45,7 +45,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
 
     # hash値が異なるとき,お仕置きツイート
     if hash_value != prevalid_hash_value:
-        post_message = f"お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}"
+        post_message = f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}"
         twitter_api.post_tweet(post_message)
 
     # ツイートしていない期間を計算。
