@@ -14,10 +14,10 @@ class TwitterAPI:
     load_dotenv()
 
     # 環境変数を参照
-    API_KEY = os.getenv('OSHIOKI_API_KEY')
-    API_SECRET = os.getenv('OSHIOKI_API_SECRET')
-    ACCESS_TOKEN = os.getenv('OSHIOKI_ACCESS_TOKEN')
-    ACCESS_TOKEN_SECRET = os.getenv('OSHIOKI_ACCESS_TOKEN_SECRET')
+    API_KEY = os.getenv('TWITTER_API_KEY')
+    API_SECRET = os.getenv('TWITTER_API_SECRET')
+    ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+    ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
 
     # APIの認証
     auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
