@@ -59,7 +59,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--id')
     args = parser.parse_args()
-    user_id = args.id
+    user_id = str(args.id)
 
     # mainを実行
     yd_31_tweet_sha256 = main(user_id)
