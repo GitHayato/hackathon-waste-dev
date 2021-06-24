@@ -9,10 +9,10 @@ class SessionsController < ApplicationController
     user = User.find_by(uid: user_data[:uid])
     file = File.dirname(__FILE__)
     if user
-      log_in user
-
       # Pythonファイル実行
-      exe_per_hour
+      exe_per_hour(user, file)
+
+      log_in user
 
       flash[:success] = 'ログインしました'
       redirect_to root_url
@@ -24,9 +24,9 @@ class SessionsController < ApplicationController
         image: user_data[:info][:image],
       )
       if new_user.save
-        log_in new_user
         tweet_hash = `python #{file}/concerns/hackason/first_main.py -i #{new_user.nickname}`
         TweetHash.create(tweet_hash: tweet_hash, user_id: new_user.id)
+        log_in new_user
         flash[:success] = 'ユーザー登録成功'
       else
         flash[:danger] = '予期せぬエラーが発生しました'
@@ -44,8 +44,8 @@ class SessionsController < ApplicationController
 
   private
 
-  def exe_per_hour
-    hash = TweetHash.find_by(user_id: user.id)
+  def exe_per_hour(user, file)
+    hash = user.tweet_hash
     # 引数渡す
     return_value = `python #{file}/concerns/hackason/exe_per_hour.py -i #{user.nickname} -hv #{hash.tweet_hash} -s #{hash.start_time} -e #{hash.end_time} -c #{hash.count}`
     TweetHash.update(tweet_hash_params)
