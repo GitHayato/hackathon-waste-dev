@@ -9,11 +9,7 @@ class SessionsController < ApplicationController
     user = User.find_by(uid: user_data[:uid])
     file = File.dirname(__FILE__)
     if user
-      # Pythonファイル実行
-      exe_per_hour(user, file)
-
       log_in user
-
       flash[:success] = 'ログインしました'
       redirect_to root_url
     else
@@ -40,18 +36,5 @@ class SessionsController < ApplicationController
     log_out if logged_in?
     flash[:success] = 'ログアウトしました'
     redirect_to root_url
-  end
-
-  private
-
-  def exe_per_hour(user, file)
-    hash = user.tweet_hash
-    # 引数渡す
-    return_value = `python #{file}/concerns/hackason/exe_per_hour.py -i #{user.nickname} -hv #{hash.tweet_hash} -s #{hash.start_time} -e #{hash.end_time} -c #{hash.count}`
-    TweetHash.update(tweet_hash_params)
-  end
-
-  def tweet_hash_params
-    params.require(:tweet_hash).permit(:tweet_hash, :start_time, :end_time, :count)
   end
 end
