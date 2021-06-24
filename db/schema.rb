@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_06_23_003838) do
 
-  create_table "tweet_hashes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "tweet_hashes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "tweet_hash", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_003838) do
     t.index ["user_id"], name: "index_tweet_hashes_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "uid"
     t.string "nickname"
     t.string "name"
