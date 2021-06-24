@@ -20,8 +20,9 @@ class SessionsController < ApplicationController
         image: user_data[:info][:image],
       )
       if new_user.save
-        tweet_hash = `python #{file}/concerns/hackason/first_main.py -i #{new_user.nickname}`
-        TweetHash.create(tweet_hash: tweet_hash, user_id: new_user.id)
+        value = `python #{file}/concerns/hackason/first_main.py -i #{new_user.nickname}`
+        value = value.split(' ')
+        TweetHash.create(tweet_hash: value[0], user_id: new_user.id, start_time: value[1], end_time: value[2], count: value[3])
         log_in new_user
         flash[:success] = 'ユーザー登録成功'
       else
