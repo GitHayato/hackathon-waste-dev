@@ -134,5 +134,14 @@ class TwitterAPI:
             return True
         
         return False
+    
+
+if __name__ == '__main__':
+    twitter_api = TwitterAPI()
+
+    res = twitter_api.test_get_user_tweets("tukikawaoshioki", float(1622180000), float(1624770000))
+    
+    if not res:
+        print("空です")
 
     
