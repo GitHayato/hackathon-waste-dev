@@ -35,36 +35,54 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
     # 前回のツイートを抽出
     pre_tweets = [(str(tweet.text), str(tweet.created_at.timestamp())) for tweet in tweets if (float(tweet.created_at.timestamp()) >= float(start)) & (float(tweet.created_at.timestamp()) <= float(end))]
     
-    sum_pre_tweet = ""
-    # list内のツイートを連結する
-    for tweet in pre_tweets:
-        sum_pre_tweet += tweet[0] + tweet[1]
-    
-    # それらをhash化する
-    prevalid_hash_value =  hash_exe(sum_pre_tweet)
+    # 過去に一度も積み上げツイートがツイートされてないとき実行
+    if not pre_tweets:
 
-    # hash値が異なるとき,お仕置きツイート
-    if hash_value != prevalid_hash_value:
-        post_message = f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}"
-        twitter_api.post_tweet(post_message)
+        # emptyをhash化する
+        sha256_value = hash_exe("empty")
 
-    # ツイートしていない期間を計算。
-    latest_tweet = float(tweets[0].created_at.timestamp())
-    dif_time = twitter_api.clu_between_tweets_period(now_time, latest_tweet)
-
-    # 二日間ツイートされてない時,催促DMを送る
-    if twitter_api.jud_kotsukotsu_load(dif_time, period=2):
-        count_updated = 0
-        hasten_message = '月に代わってお仕置きよ ついーとしなさい！'
-        twitter_api.send_directMessage(user_id, hasten_message)
-
-    # 続いている場合は、応援DM
-    else:
-        # 1日に一回お祝いツイートをする
-        if count_updated >= 24:
+        if hash_value == sha256_value:
+            # print("問題なし")
             count_updated = 0
-            celebration_message = 'すごいわ！ これからも頑張って☆彡'
-            twitter_api.send_directMessage(user_id, celebration_message)
+            hasten_message = '月に代わってお仕置きよ 早く積み上げツイートをしなさい！'
+            twitter_api.send_directMessage(user_id, hasten_message)
+
+        # hash値に問題があったとき：何もしない
+        else:
+            # print("hash値に問題あり！！！")
+            pass
+
+    else:
+        sum_pre_tweet = ""
+        # list内のツイートを連結する
+        for tweet in pre_tweets:
+            sum_pre_tweet += tweet[0] + tweet[1]
+        
+        # それらをhash化する
+        prevalid_hash_value =  hash_exe(sum_pre_tweet)
+
+        # hash値が異なるとき,お仕置きツイート
+        if hash_value != prevalid_hash_value:
+            post_message = f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}"
+            twitter_api.post_tweet(post_message)
+
+        # ツイートしていない期間を計算。
+        latest_tweet = float(tweets[0].created_at.timestamp())
+        dif_time = twitter_api.clu_between_tweets_period(now_time, latest_tweet)
+
+        # 二日間ツイートされてない時,催促DMを送る
+        if twitter_api.jud_kotsukotsu_load(dif_time, period=2):
+            count_updated = 0
+            hasten_message = '月に代わってお仕置きよ ついーとしなさい！'
+            twitter_api.send_directMessage(user_id, hasten_message)
+
+        # 続いている場合は、応援DM
+        else:
+            # 1日に一回お祝いツイートをする
+            if count_updated >= 24:
+                count_updated = 0
+                celebration_message = 'すごいわ！ これからも頑張って☆彡'
+                twitter_api.send_directMessage(user_id, celebration_message)
 
 
     # hash値,start,endの更新をしてrubyに返す。
@@ -74,13 +92,20 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
     # 今回ツイートを抽出
     now_tweets = [(str(tweet.text), str(tweet.created_at.timestamp())) for tweet in tweets if (float(tweet.created_at.timestamp()) >= start_updated) & (float(tweet.created_at.timestamp()) <= end_updated)]
 
-    sum_now_tweet = ""
-    # list内のツイートを連結する
-    for tweet in now_tweets:
-        sum_now_tweet += (tweet[0] + tweet[1])
+    # 今回も積み上げツイートがツイートされてないとき実行
+    if not now_tweets:
+
+        # emptyをhash化する
+        hash_value_updated = hash_exe("empty")
     
-    # それらをhash化する
-    hash_value_updated =  hash_exe(sum_now_tweet)
+    else:
+        sum_now_tweet = ""
+        # list内のツイートを連結する
+        for tweet in now_tweets:
+            sum_now_tweet += (tweet[0] + tweet[1])
+        
+        # それらをhash化する
+        hash_value_updated =  hash_exe(sum_now_tweet)
 
     return  hash_value_updated, start_updated, end_updated, count_updated
     
