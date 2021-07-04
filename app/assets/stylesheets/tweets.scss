@@ -137,3 +137,21 @@
   min-height: 230px;
   overflow-y: scroll;
 }
+
+.select-timeline {
+  ul li {
+    li {
+      height: 0;
+      overflow: hidden;
+      transition: .3s;
+      a {
+        background-color: aqua;
+      }
+    }
+    &:hover > ul > li {
+      height: 1em;
+      overflow: visible;
+    }
+  }
+}
+
