@@ -139,19 +139,62 @@
 }
 
 .select-timeline {
-  ul li {
+  ul {
+    width: 150px;
+    height: 40px;
+    margin-left: 4vw;
+    padding: 0;
+    display: table;
+    table-layout: fixed;
     li {
-      height: 0;
-      overflow: hidden;
-      transition: .3s;
-      a {
-        background-color: aqua;
+      p {
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        text-decoration: none;
+        font-size: 14px;
+        color: #fff;
+      }
+      &:hover ul {
+        visibility: visible;
+      }
+      ul {
+        visibility: hidden;
+        width: 100%;
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        left: -1px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #E1E8ED;
+        border-top: none;
+        li {
+          background: #fff;
+          transition: all .2s ease;
+          display: block;
+          a {
+            display: block;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+          }
+        }
       }
     }
-    &:hover > ul > li {
-      height: 1em;
-      overflow: visible;
+    > li {
+      position: relative;
+      display: table-cell;
+      vertical-align: middle;
+      border-radius: 5px;
+      background-color: #1DA1F2;
+
     }
+  }
+  ul li:hover ul li:hover {
+    background: #f8f8f8;
   }
 }
 
