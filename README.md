@@ -1,24 +1,22 @@
-# README
+# アプリケーション名
+美少女戦士 ご褒美仮面&お仕置き仮面
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# アプリケーション概要
+ハッシュ化技術を用いてTwitterの「#今日の積み上げ」ツイートの削除を行うと通知させるアプリ。また、積み上げツイートをすると褒めてくれるアプリ。
 
-Things you may want to cover:
+# 背景
+独学で勉強する学生が増える一方、褒めてくれたり叱ってくれる人がいない
 
-* Ruby version
+# URL
+https://carrotandstick.beagirmask.com/
 
-* System dependencies
+# 使用技術
+- Ruby
+- Ruby on Rails
+- Python
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 機能一覧
+- ユーザー登録、ログイン機能(Twitter API)
+- アプリ公式Twitterアカウントの自動ツイート機能
+- TwitterDM送信機能
+- ツイート一覧機能
