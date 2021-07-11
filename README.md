@@ -20,3 +20,8 @@ https://carrotandstick.beagirmask.com/
 - アプリ公式Twitterアカウントの自動ツイート機能
 - TwitterDM送信機能
 - ツイート一覧機能
+
+# 使い方
+➀https://carrotandstick.beagirmask.com/　にアクセス
+⓶ツイッターのログイン認証からお持ちのアカウントでログイン
+⓷後は自動で「お仕置」「ご褒美」を実行致します❤　積み上げ頑張ってください☆彡
