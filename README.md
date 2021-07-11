@@ -22,6 +22,6 @@ https://carrotandstick.beagirmask.com/
 - ツイート一覧機能
 
 # 使い方
-➀https://carrotandstick.beagirmask.com/　にアクセス
-⓶ツイッターのログイン認証からお持ちのアカウントでログイン
-⓷後は自動で「お仕置」「ご褒美」を実行致します❤　積み上げ頑張ってください☆彡
+➀https://carrotandstick.beagirmask.com/　にアクセス  
+⓶ツイッターのログイン認証からお持ちのアカウントでログイン  
+⓷後は自動で「お仕置」「ご褒美」を実行致します❤　積み上げ頑張ってください☆彡  
