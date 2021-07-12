@@ -22,9 +22,16 @@ class SessionsController < ApplicationController
       if new_user.save
         value = `python #{file}/concerns/hackason/first_main.py -i #{new_user.nickname}`
         value = value.split(' ')
-        TweetHash.create(tweet_hash: value[0], user_id: new_user.id, start_time: value[1], end_time: value[2], count: value[3])
-        log_in new_user
-        flash[:success] = 'ユーザー登録成功'
+        tweet_hash = TweetHash.new(tweet_hash: value[0], user_id: new_user.id, start_time: value[1], end_time: value[2], count: value[3])
+        if tweet_hash.save
+          # 変数tweet_hashが正しく保存されるとき、ログインする
+          log_in new_user
+          flash[:success] = 'ユーザー登録成功'
+        else
+          # 変数tweet_hashが正しく保存されないとき、ユーザーの情報を削除する
+          new_user.destroy
+          flash[:danger] = "予期せぬエラーが発生しました"
+        end
       else
         flash[:danger] = '予期せぬエラーが発生しました'
       end
