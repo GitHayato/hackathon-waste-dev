@@ -1,3 +1,14 @@
+<div class="select-timeline">
+  <ul>
+    <li>
+      <p>表示方法の切り替え &#9663;</p>
+      <ul>
+        <li><%= link_to "全ツイート", root_path %></li>
+        <li><%= link_to "関連するツイート", root_path(view: "yours") %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
 <div class="main-contents">
   <div class="official-hashtag">
     <div class="official-tweets-timeline">
