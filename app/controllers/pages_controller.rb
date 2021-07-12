@@ -5,8 +5,13 @@ class PagesController < ApplicationController
     if logged_in?
       @data = data(current_user.nickname, "#今日の積み上げ")
     end
-    @punishments = data("tukikawaoshioki", "#お仕置き執行")
-    @rewards = data("taiyogohoubi", "")
+    if params[:view] == 'yours'
+      @punishments = data("tukikawaoshioki", "#お仕置き執行 @#{current_user.nickname}")
+      @rewards = data("taiyogohoubi", "@#{current_user.nickname}")
+    else
+      @punishments = data("tukikawaoshioki", "#お仕置き執行")
+      @rewards = data("taiyogohoubi", "お疲れ様")
+    end
   end
 
   private
