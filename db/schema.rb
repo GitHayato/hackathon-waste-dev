@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 2021_06_23_003838) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "start_time"
+    t.string "start_time"
     t.integer "count"
-    t.float "end_time"
+    t.string "end_time"
     t.index ["user_id"], name: "index_tweet_hashes_on_user_id"
   end
 
