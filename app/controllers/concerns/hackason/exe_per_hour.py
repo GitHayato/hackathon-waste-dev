@@ -18,6 +18,15 @@ import argparse
 from argparse import ArgumentError
 
 
+# ログ取得
+import logging
+logger = logging.getLogger(__name__)
+# ログレベル設定
+logger.setLevel(logging.INFO)
+##ハンドラ取得
+get_handler = logging.FileHandler('app/controllers/concerns/hackason/logfile/exe_per_hour_cron.log')
+logger.addHandler(get_handler)
+
 
 def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
 
@@ -44,7 +53,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
         if hash_value == sha256_value:
             # print("問題なし")
             count_updated = 0
-            hasten_message = '月に代わってお仕置きよ 早く積み上げツイートをしなさい！'
+            hasten_message = f'月に代わってお仕置きよ 早く積み上げツイートをしなさい！\n{datetime.fromtimestamp(now_time)}'
             twitter_api.send_directMessage(user_id, hasten_message)
 
         # hash値に問題があったとき：何もしない
@@ -63,7 +72,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
 
         # hash値が異なるとき,お仕置きツイート
         if hash_value != prevalid_hash_value:
-            post_message = f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id}"
+            post_message = f"#お仕置き執行　\n 改ざんを検知したわ。\n月に代わってお仕置きよ❤ @{user_id} \n{datetime.fromtimestamp(now_time)} "
             twitter_api.post_tweet(post_message)
 
         # ツイートしていない期間を計算。
@@ -73,7 +82,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
         # 二日間ツイートされてない時,催促DMを送る
         if twitter_api.jud_kotsukotsu_load(dif_time, period=2):
             count_updated = 0
-            hasten_message = '月に代わってお仕置きよ ついーとしなさい！'
+            hasten_message = f'月に代わってお仕置きよ ついーとしなさい！ \n{datetime.fromtimestamp(now_time)}'
             twitter_api.send_directMessage(user_id, hasten_message)
 
         # 続いている場合は、応援DM
@@ -81,7 +90,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
             # 1日に一回お祝いツイートをする
             if count_updated >= 24:
                 count_updated = 0
-                celebration_message = 'すごいわ！ これからも頑張って☆彡'
+                celebration_message = f'すごいわ！ これからも頑張って☆彡 \n{datetime.fromtimestamp(now_time)}'
                 twitter_api.send_directMessage(user_id, celebration_message)
 
 
@@ -106,6 +115,8 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
         
         # それらをhash化する
         hash_value_updated =  hash_exe(sum_now_tweet)
+    
+    logger.info(f'user_id:{user_id} | hash_value:{hash_value} | start:{datetime.fromtimestamp(float(start))} | end:{datetime.fromtimestamp(float(end))} | hash_value_updated:{hash_value_updated} | start_updated:{datetime.fromtimestamp(float(start_updated))} | end_updated:{datetime.fromtimestamp(float(end_updated))}')
 
     return  hash_value_updated, start_updated, end_updated, count_updated
     

@@ -22,7 +22,15 @@ class SessionsController < ApplicationController
       if new_user.save
         value = `python #{file}/concerns/hackason/first_main.py -i #{new_user.nickname}`
         value = value.split(' ')
-        tweet_hash = TweetHash.new(tweet_hash: value[0], user_id: new_user.id, start_time: value[1], end_time: value[2], count: value[3])
+        # first_main.pyにログを吐かせる
+        # Rails.application.config.another_logger.info("
+        #   tweet_hash: #{value[0]}\n
+        #   start_time: #{start_time}\n
+        #   end_time: #{end_time}\n
+        #   count: #{value[0]}
+        # ")
+        # TweetHashを作成
+        tweet_hash = TweetHash.create(tweet_hash: value[0], user_id: new_user.id, start_time: value[1], end_time: value[2], count: value[3])
         if tweet_hash.save
           # 変数tweet_hashが正しく保存されるとき、ログインする
           log_in new_user
