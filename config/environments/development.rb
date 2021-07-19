@@ -62,4 +62,7 @@ Rails.application.configure do
 
   # 以下のホストからのリクエストを通過させる
   config.hosts << "carrotandstick.beagirmask.com"
+
+  # バッチ処理のログの排出先
+  config.another_logger = Logger.new(Rails.root.join('log/exe_per_hour.log'))
 end
