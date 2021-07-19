@@ -14,6 +14,7 @@ namespace :get_tweets do
       # 更新処理
       hash.update(tweet_hash: return_value[0], start_time: return_value[1],
                     end_time: return_value[2], count: return_value[3])
+      # ログに以下の内容を吐く
       Rails.application.config.another_logger.info("
         ======
         #{user.nickname}
