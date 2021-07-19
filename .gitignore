@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/app/controllers/concerns/hackason/logfile/*
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
@@ -44,4 +45,3 @@ yarn-debug.log*
 
 # Ignore config files.
 /config/database.yml
-config/database.yml

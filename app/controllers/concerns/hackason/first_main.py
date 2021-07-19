@@ -16,6 +16,16 @@ import time
 from typing import Tuple
 
 
+# ログ取得
+import logging
+logger = logging.getLogger(__name__)
+# ログレベル設定
+logger.setLevel(logging.INFO)
+##ハンドラ取得
+get_handler = logging.FileHandler('app/controllers/concerns/hackason/logfile/first_main_cron.log')
+logger.addHandler(get_handler)
+
+
 # 今日の日付のunixタイムを返す
 def get_today_time() -> float:
     td_today = date.today().strftime('%s')
@@ -56,6 +66,8 @@ def main(user_id:str) -> Tuple:
     start = ago_30days
     end  = now_time
 
+    logger.info(f'実行終わり: user_id:{user_id} | hash_value:{sha256_value} | start:{start} | end:{end}')
+
     return sha256_value, start, end
         
 
@@ -67,10 +79,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     user_id = str(args.id)
 
+    logger.info(f'実行始め: user_id:{user_id}')
+
     # mainを実行
     sha256_value, start, end = main(user_id)
 
     count = 0
     
     # Rubyにhash値を返す
-    print(sha256_value, start, end, count)
+    print(sha256_value, float(start), float(end), count)
