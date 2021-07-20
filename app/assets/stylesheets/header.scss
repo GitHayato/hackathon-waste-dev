@@ -4,9 +4,8 @@ header {
   justify-content: space-around;
   margin-bottom: 10px;
 
-  p {
-    width: 100px;
-    margin: 0;
+  div {
+    display: flex;
   }
 }
 
@@ -34,6 +33,18 @@ header {
   color: #fff;
   background-color: #1DA1F2;
   border-radius: 5px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.danger-button {
+  color: #fff;
+  background-color: #F85149;
+  border-radius: 5px;
+  font-size: 0.8em;
+  margin-left: 20px;
 
   &:hover {
     opacity: 0.8;
