@@ -5,6 +5,10 @@
   <% end %>
 
   <% if logged_in? %>
-    <p><%= link_to 'ログアウト', logout_path, class: "logout button" %></p>
+    <div>
+      <p><%= link_to 'ログアウト', logout_path, class: "logout button" %></p>
+      <p><%= link_to '退会', user_path(current_user.id), method: :delete,
+              data: {confirm: "本当に退会しますか？"}, class: "logout danger-button" %><p>
+    </div>
   <% end %>
 </header>
