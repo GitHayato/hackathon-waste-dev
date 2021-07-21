@@ -54,7 +54,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
             # print("問題なし")
             count_updated = 0
             hasten_message = f'月に代わってお仕置きよ 早く積み上げツイートをしなさい！\n{datetime.fromtimestamp(now_time)}'
-            twitter_api.send_directMessage(user_id, hasten_message)
+            twitter_api.oshioki_send_directMessage(user_id, hasten_message)
 
         # hash値に問題があったとき：何もしない
         else:
@@ -83,7 +83,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
         if twitter_api.jud_kotsukotsu_load(dif_time, period=2):
             count_updated = 0
             hasten_message = f'月に代わってお仕置きよ ついーとしなさい！ \n{datetime.fromtimestamp(now_time)}'
-            twitter_api.send_directMessage(user_id, hasten_message)
+            twitter_api.oshioki_send_directMessage(user_id, hasten_message)
 
         # 続いている場合は、応援DM
         else:
@@ -91,7 +91,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
             if count_updated >= 96:
                 count_updated = 0
                 celebration_message = f'すごいわ！ これからも頑張って☆彡 \n{datetime.fromtimestamp(now_time)}'
-                twitter_api.send_directMessage(user_id, celebration_message)
+                twitter_api.gohobi_send_directMessage(user_id, celebration_message)
 
 
     # hash値,start,endの更新をしてrubyに返す。
