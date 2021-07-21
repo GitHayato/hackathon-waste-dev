@@ -11,24 +11,30 @@ from dotenv import load_dotenv
 class TwitterAPI:
     # 認証に必要なキーとトークン
 
+    # 環境変数を参照
     load_dotenv()
 
-    # 環境変数を参照
-    # API_KEY = os.getenv('TWITTER_API_KEY')
-    # API_SECRET = os.getenv('TWITTER_API_SECRET')
-    # ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
-    # ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
-    API_KEY = os.getenv('OSHIOKI_API_KEY')
-    API_SECRET = os.getenv('OSHIOKI_API_SECRET')
-    ACCESS_TOKEN = os.getenv('OSHIOKI_ACCESS_TOKEN')
-    ACCESS_TOKEN_SECRET = os.getenv('OSHIOKI_ACCESS_TOKEN_SECRET')
-
+    #  お仕置き仮面Twitterアカウントの初期化
+    OSHIOKI_API_KEY = os.getenv('OSHIOKI_API_KEY')
+    OSHIOKI_API_SECRET = os.getenv('OSHIOKI_API_SECRET')
+    OSHIOKI_ACCESS_TOKEN = os.getenv('OSHIOKI_ACCESS_TOKEN')
+    OSHIOKI_ACCESS_TOKEN_SECRET = os.getenv('OSHIOKI_ACCESS_TOKEN_SECRET')
     # APIの認証
-    auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-    
-    # APIオブジェクトの作成
-    api = tweepy.API(auth)
+    OSHIOKI_auth = tweepy.OAuthHandler(OSHIOKI_API_KEY, OSHIOKI_API_SECRET)
+    OSHIOKI_auth.set_access_token(OSHIOKI_ACCESS_TOKEN, OSHIOKI_ACCESS_TOKEN_SECRET)
+    # お仕置き仮面APIオブジェクトの作成
+    OSHIOKI_api = tweepy.API(OSHIOKI_auth)
+
+    #  ご褒美仮面Twitterアカウントの初期化
+    GOHOBI_API_KEY = os.getenv('GOHOBI_API_KEY')
+    GOHOBI_API_SECRET = os.getenv('GOHOBI_API_SECRET')
+    GOHOBIACCESS_TOKEN = os.getenv('GOHOBI_ACCESS_TOKEN')
+    GOHOBI_ACCESS_TOKEN_SECRET = os.getenv('GOHOBI_ACCESS_TOKEN_SECRET')
+    # APIの認証
+    GOHOBI_auth = tweepy.OAuthHandler(GOHOBI_API_KEY, GOHOBI_API_SECRET)
+    GOHOBI_auth.set_access_token(GOHOBIACCESS_TOKEN, GOHOBI_ACCESS_TOKEN_SECRET)
+    # ご褒美仮面APIオブジェクトの作成
+    GOHOBI_api = tweepy.API(GOHOBI_auth)
 
 
     """
@@ -41,7 +47,7 @@ class TwitterAPI:
     def get_user_tweets(self, user_id:str, since:str, until:str) -> List[Tuple[str, datetime]]:
 
         # (1)リツイート、リプライのツイートは無視する。(2)「#今日の積み上げ」ツイートを抽出する
-        tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.api.user_timeline, id=user_id).items(500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None) & (float(tweet.created_at.timestamp()) >= float(since)) & (float(tweet.created_at.timestamp()) <= float(until))]
+        tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.OSHIOKI_api.user_timeline, id=user_id).items(500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None) & (float(tweet.created_at.timestamp()) >= float(since)) & (float(tweet.created_at.timestamp()) <= float(until))]
 
         # 各ツイートの内容と日付をlistに格納
         tweet_info = []
@@ -54,7 +60,7 @@ class TwitterAPI:
     def get_user_tweets_byTime(self, user_id:str, yd:float, dby:float, ago_31days:float, ago_32days:float) -> Tuple:
         
         # (1)リツイート、リプライのツイートは無視する。(2)「#今日の積み上げ」ツイートを抽出する
-        tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None)]
+        tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.OSHIOKI_api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None)]
 
         # 昨日~31日前のツイートを抽出
         yd_31days_tweet = [tweet for tweet in tweets if (float(tweet.created_at.timestamp()) >= ago_31days) & (float(tweet.created_at.timestamp()) <= yd)]
@@ -78,32 +84,42 @@ class TwitterAPI:
     def regularly_get_user_tweets(self, user_id:str, start:float, now_time:float) -> List:
 
         # start~endの間の「#今日の積み上げ」ツイートを抽出する
-        tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None) & (float(tweet.created_at.timestamp()) >= float(start)) & (float(tweet.created_at.timestamp()) <= float(now_time))]
+        tweets = [tweet for tweet in tweepy.Cursor(TwitterAPI.OSHIOKI_api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None) & (float(tweet.created_at.timestamp()) >= float(start)) & (float(tweet.created_at.timestamp()) <= float(now_time))]
 
         return tweets
     
     def test_get_user_tweets(self, user_id:str, start:float, end:float) -> List:
 
         # start~endの間の「#今日の積み上げ」ツイートを抽出する
-        tweets = [(str(tweet.text), str(tweet.created_at.timestamp())) for tweet in tweepy.Cursor(TwitterAPI.api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None) & (float(tweet.created_at.timestamp()) >= float(start)) & (float(tweet.created_at.timestamp()) <= float(end))]
+        tweets = [(str(tweet.text), str(tweet.created_at.timestamp())) for tweet in tweepy.Cursor(TwitterAPI.OSHIOKI_api.user_timeline, id=user_id).items(limit=500) if (list(tweet.text)[:2]!=['R', 'T']) & (list(tweet.text)[0]!='@') & (re.search("#今日の積み上げ", str(tweet.text)) != None) & (float(tweet.created_at.timestamp()) >= float(start)) & (float(tweet.created_at.timestamp()) <= float(end))]
 
         return tweets
 
 
     # ツイートを投稿する
     def post_tweet(self, tweet:str) -> None:
-        res = TwitterAPI.api.update_status(tweet)
+        res = TwitterAPI.OSHIOKI_api.update_status(tweet)
         # print(res)
 
     
-    # DMを送る
-    def send_directMessage(self, user_id:str, message:str) -> None:
+    # お仕置きののDMを送る
+    def oshioki_send_directMessage(self, user_id:str, message:str) -> None:
 
         # user idからid(整数)を取得する
-        recipient_id = TwitterAPI.api.get_user(user_id)
+        recipient_id = TwitterAPI.OSHIOKI_api.get_user(user_id)
 
         # DMを送る
-        res = TwitterAPI.api.send_direct_message(recipient_id=recipient_id.id_str, text=message)
+        res = TwitterAPI.OSHIOKI_api.send_direct_message(recipient_id=recipient_id.id_str, text=message)
+        # print(res)
+    
+    # 応援のDMを送る
+    def gohobi_send_directMessage(self, user_id:str, message:str) -> None:
+
+        # user idからid(整数)を取得する
+        recipient_id = TwitterAPI.GOHOBI_api.get_user(user_id)
+
+        # DMを送る
+        res = TwitterAPI.GOHOBI_api.send_direct_message(recipient_id=recipient_id.id_str, text=message)
         # print(res)
 
     """
