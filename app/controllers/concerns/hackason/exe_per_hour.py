@@ -88,7 +88,7 @@ def main(user_id:str, hash_value:str, start:str, end:str, count:int) -> Tuple:
         # 続いている場合は、応援DM
         else:
             # 1日に一回お祝いツイートをする
-            if count_updated >= 24:
+            if count_updated >= 96:
                 count_updated = 0
                 celebration_message = f'すごいわ！ これからも頑張って☆彡 \n{datetime.fromtimestamp(now_time)}'
                 twitter_api.send_directMessage(user_id, celebration_message)
